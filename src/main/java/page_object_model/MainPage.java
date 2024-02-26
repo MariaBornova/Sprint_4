@@ -42,20 +42,6 @@ public class MainPage {
         driver.findElement(COOKIE_BUTTON).click();
     }
 
-    public void clickTopOrderButton() {
-        WebElement topOrderButton = driver.findElement(ORDER_BUTTON_TOP);
-        topOrderButton.click();
-    }
-
-    public void scrollMiddleOrderButton() {
-        WebElement middleOrderButton = driver.findElement(ORDER_BUTTON_MIDDLE);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", middleOrderButton);
-    }
-
-    public void clickMiddleOrderButton() {
-        WebElement middleOrderButton = driver.findElement(ORDER_BUTTON_MIDDLE);
-        middleOrderButton.click();
-    }
 
     public void scrollToQuestion() {
         WebElement questionSection = driver.findElement(QUESTION_SECTION);
