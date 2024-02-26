@@ -14,9 +14,9 @@ public class MainPage {
     // URL главной страницы
     private static final String MAIN_PAGE_URL = "https://qa-scooter.praktikum-services.ru/";
     // Кнопка "Заказать" вверху страницы
-    private static final By TOP_ORDER_BUTTON = By.cssSelector(".Button_Button__ra12g");
+    public static final By ORDER_BUTTON_TOP = By.cssSelector(".Button_Button__ra12g");
     // Кнопка "Заказать" внизу страницы
-    private static final By MIDDLE_ORDER_BUTTON = By.cssSelector(".Button_Middle__1CSJM");
+    public static final By ORDER_BUTTON_MIDDLE = By.cssSelector(".Button_Middle__1CSJM");
     //Элемент секции "Вопросы о важном"
     private static final By QUESTION_ITEM = By.className("accordion__item");
     //Кнопка вопроса секции "Вопросы о важном"
@@ -43,17 +43,17 @@ public class MainPage {
     }
 
     public void clickTopOrderButton() {
-        WebElement topOrderButton = driver.findElement(TOP_ORDER_BUTTON);
+        WebElement topOrderButton = driver.findElement(ORDER_BUTTON_TOP);
         topOrderButton.click();
     }
 
     public void scrollMiddleOrderButton() {
-        WebElement middleOrderButton = driver.findElement(MIDDLE_ORDER_BUTTON);
+        WebElement middleOrderButton = driver.findElement(ORDER_BUTTON_MIDDLE);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", middleOrderButton);
     }
 
     public void clickMiddleOrderButton() {
-        WebElement middleOrderButton = driver.findElement(MIDDLE_ORDER_BUTTON);
+        WebElement middleOrderButton = driver.findElement(ORDER_BUTTON_MIDDLE);
         middleOrderButton.click();
     }
 

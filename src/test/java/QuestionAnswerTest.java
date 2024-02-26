@@ -34,7 +34,7 @@ public class QuestionAnswerTest extends StartOptions {
     }
 
     @Test
-    public void CheckQuestionsAnswers() {
+    public void checkQuestionsAnswers() {
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
         mainPage.acceptCookiesOnMainPage();

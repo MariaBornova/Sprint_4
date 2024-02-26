@@ -1,12 +1,12 @@
 package page_object_model;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 public class OrderPage {
     private final WebDriver driver;
-    // Страница формы заказа и ссылка на нее
     private static final By SECOND_ORDER_PAGE = By.className("Order_Form__17u6u");
     // Поля формы заказа 1 и 2 страниц
     private static final By NAME_INPUT = By.xpath("//input[@placeholder ='* Имя']");
@@ -28,9 +28,9 @@ public class OrderPage {
 
 
     public OrderPage(WebDriver driver) {
-
         this.driver = driver;
     }
+
 
     public void fillOrderFirstPage(String name, String lastname, String city, String metro, String phone) {
         driver.findElement(NAME_INPUT).clear();
@@ -74,5 +74,10 @@ public class OrderPage {
 
     public String getConfirmationMessage() {
         return driver.findElement(CONFIRMED_ORDER_MESSAGE).getText();
+    }
+
+    public void clickOrderButton(By orderButtonLocator) {
+        WebElement orderButton = driver.findElement(orderButtonLocator);
+        orderButton.click();
     }
 }

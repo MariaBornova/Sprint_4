@@ -1,9 +1,14 @@
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.junit.Test;
 import org.junit.Assert;
 import org.junit.runners.Parameterized;
+import org.openqa.selenium.By;
 import page_object_model.OrderPage;
 import page_object_model.MainPage;
+import static page_object_model.MainPage.ORDER_BUTTON_MIDDLE;
+import static page_object_model.MainPage.ORDER_BUTTON_TOP;
+
 
 @RunWith(Parameterized.class)
 public class OrderSamokatTest extends StartOptions {
@@ -16,9 +21,10 @@ public class OrderSamokatTest extends StartOptions {
     private final String howLong;
     private final String colour;
     private final String comment;
+    private final By orderButtonLocator;
 
     //Класс-конструктор для формы заказа
-    public OrderSamokatTest(String name, String lastName, String city, String metroStation, String phoneNumber, String date, String howLong, String colour, String comment) {
+    public OrderSamokatTest(String name, String lastName, String city, String metroStation, String phoneNumber, String date, String howLong, String colour, String comment, By orderButtonLocator) {
         this.name = name;
         this.lastName = lastName;
         this.city = city;
@@ -28,41 +34,30 @@ public class OrderSamokatTest extends StartOptions {
         this.howLong = howLong;
         this.colour = colour;
         this.comment = comment;
+        this.orderButtonLocator = orderButtonLocator;
+
     }
 
     @Parameterized.Parameters
     public static Object[][] getOrderData() {
         return new Object[][]{
-                {"Виктор", "Уткин", "Москва", "Сокольники", "+79127964353", "11.04.2024", "сутки", "чёрный жемчуг", "Курьер на входе"},
-                {"Мария", "Фамилия", "Курган", "Текстильщики", "+79222890666", "11.03.2024", "трое суток", "серая безысходность", "Как можно раньше с утра привезти"},
+                {"Виктор", "Уткин", "Москва", "Сокольники", "+79127964353", "11.04.2024", "сутки", "чёрный жемчуг", "Курьер на входе", ORDER_BUTTON_TOP},
+                {"Мария", "Фамилия", "Курган", "Текстильщики", "+79222890666", "11.03.2024", "трое суток", "серая безысходность", "Как можно раньше с утра привезти", ORDER_BUTTON_MIDDLE},
         };
     }
 
-    @Test
-    public void CreateOrderByMiddleButton() {
-        OrderPage orderPage = new OrderPage(driver);
+    @Before
+    public void openMainPage() {
         MainPage mainPage = new MainPage(driver);
         mainPage.open();
         mainPage.acceptCookiesOnMainPage();
-        mainPage.scrollMiddleOrderButton();
-        mainPage.clickMiddleOrderButton();
-        orderPage.fillOrderFirstPage(name, lastName, city, metroStation, phoneNumber);
-        orderPage.transferToSecondPage();
-        orderPage.fillOrderSecondPage(date, howLong, colour, comment);
-        orderPage.fillOrderConfirmation();
-
-        Assert.assertEquals("Неверный статус.Заказ не оформлен", "Заказ оформлен", orderPage.getConfirmationMessage());
     }
 
 
     @Test
-    public void CreateOrderByTopButton() {
+    public void testCreateOrder() {
         OrderPage orderPage = new OrderPage(driver);
-        MainPage mainPage = new MainPage(driver);
-        mainPage.open();
-        mainPage.acceptCookiesOnMainPage();
-
-        mainPage.clickTopOrderButton();
+        orderPage.clickOrderButton(orderButtonLocator);
         orderPage.fillOrderFirstPage(name, lastName, city, metroStation, phoneNumber);
         orderPage.transferToSecondPage();
         orderPage.fillOrderSecondPage(date, howLong, colour, comment);
